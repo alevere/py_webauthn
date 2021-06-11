@@ -1,5 +1,6 @@
 import os
 import sys
+import logging
 
 from flask import Flask
 from flask import flash
@@ -22,6 +23,7 @@ from context import webauthn
 from models import User
 
 app = Flask(__name__)
+logging.basicConfig(filename='record.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(
     os.path.join(os.path.dirname(os.path.abspath(__name__)), 'webauthn.db'))
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -52,6 +54,8 @@ def load_user(user_id):
 
 @app.route('/')
 def index():
+    app.logger.info('Info level log')
+    app.logger.warning('Warning level log')
     return render_template('index.html')
 
 
