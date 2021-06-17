@@ -23,6 +23,8 @@ from context import webauthn
 from models import User
 
 app = Flask(__name__)
+usernameme = getpass.getuser()
+print(usernameme)
 logging.basicConfig(filename='/app/flask_demo/record.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(
     os.path.join(os.path.dirname(os.path.abspath(__name__)), 'app/flask_demo/webauthn.db'))
