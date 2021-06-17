@@ -33,9 +33,9 @@ db.init_app(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-RP_ID = 'localhost'
-RP_NAME = 'webauthn demo localhost'
-ORIGIN = 'https://localhost:5000'
+RP_ID = os.environ.get('RPID')
+RP_NAME = os.environ.get('RPNAME')
+ORIGIN = os.environ.get('ORIGIN')
 
 # Trust anchors (trusted attestation roots) should be
 # placed in TRUST_ANCHOR_DIR.
