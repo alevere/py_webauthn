@@ -9,8 +9,8 @@ COPY webauthn /app/webauthn/
 RUN pip install -r /app/flask_demo/requirements.txt
 RUN touch /data/webauthn.db
 RUN chmod 777 /data/webauthn.db
+RUN chown 1015030000 /data/webauthn.db
 RUN python /app/flask_demo/create_db.py
 RUN chown 1015030000 /data
 RUN chown 1015030000 /app/flask_demo
-RUN chown 1015030000 /data/webauthn.db
 CMD ["python", "/app/flask_demo/app.py"]
