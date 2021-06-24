@@ -59,10 +59,6 @@ def load_user(user_id):
 def index():
     app.logger.info('Info level log')
     app.logger.warning('Warning level log')
-    users = session.query(User).all()
-    for user in users:
-        print (user)
-        print (user.ukey, user.username, user.display_name, user.icon_url, user.credential_id, user.pub_key, user.sign_count, user.rp_id)
     return render_template('index.html')
 
 
@@ -248,6 +244,14 @@ def verify_assertion():
         'Successfully authenticated as {}'.format(user.username)
     })
 
+@app.route('/list')
+def list():
+    @login_required
+    users = session.query(User).all()
+    for user in users:
+        print (user)
+        print (user.ukey, user.username, user.display_name, user.icon_url, user.credential_id, user.pub_key, user.sign_count, user.rp_id)
+    return 1
 
 @app.route('/logout')
 @login_required
