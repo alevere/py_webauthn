@@ -23,8 +23,7 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import constant_time
 from cryptography.hazmat.primitives.asymmetric.ec import (
     ECDSA, EllipticCurvePublicNumbers, SECP256R1)
-from cryptography.hazmat.primitives.asymmetric.padding import (MGF1, PKCS1v15,
-                                                               PSS)
+from cryptography.hazmat.primitives.asymmetric.padding import (MGF1, PKCS1v15, PSS)
 from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicNumbers
 from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.x509 import load_der_x509_certificate
@@ -44,9 +43,10 @@ SUPPORTED_ATTESTATION_TYPES = (AT_BASIC, AT_NONE, AT_SELF_ATTESTATION)
 AT_FMT_FIDO_U2F = 'fido-u2f'
 AT_FMT_PACKED = 'packed'
 AT_FMT_NONE = 'none'
+AT_FMT_APPLE = 'apple'
 
 # Only supporting 'fido-u2f', 'packed', and 'none' attestation formats for now.
-SUPPORTED_ATTESTATION_FORMATS = (AT_FMT_FIDO_U2F, AT_FMT_PACKED, AT_FMT_NONE)
+SUPPORTED_ATTESTATION_FORMATS = (AT_FMT_FIDO_U2F, AT_FMT_PACKED, AT_FMT_NONE, AT_FMT_APPLE)
 
 COSE_ALG_ES256 = -7
 COSE_ALG_PS256 = -37
@@ -568,6 +568,19 @@ class WebAuthnRegistrationResponse(object):
 
             return (attestation_type, trust_path, credential_pub_key, cred_id)
         elif fmt == AT_FMT_NONE:
+            # `none` - indicates that the Relying Party is not interested in
+            # authenticator attestation.
+            if not self.none_attestation_permitted:
+                raise RegistrationRejectedException(
+                    'Authenticator attestation is required.')
+
+            # Step 1.
+            #
+            # Return attestation type None with an empty trust path.
+            attestation_type = AT_NONE
+            trust_path = []
+            return (attestation_type, trust_path, credential_pub_key, cred_id)
+        elif fmt == AT_FMT_APPLE:
             # `none` - indicates that the Relying Party is not interested in
             # authenticator attestation.
             if not self.none_attestation_permitted:
