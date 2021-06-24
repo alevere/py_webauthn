@@ -246,8 +246,9 @@ def verify_assertion():
 
 @app.route('/list')
 def list():
-    @login_required
-    return render_template('user.html')
+    app.logger.info('Info level log')
+    app.logger.warning('Warning level log')
+    return render_template('users.html')
 
 @app.route('/logout')
 @login_required
