@@ -247,11 +247,7 @@ def verify_assertion():
 @app.route('/list')
 def list():
     @login_required
-    users = session.query(User).all()
-    for user in users:
-        print (user)
-        print (user.ukey, user.username, user.display_name, user.icon_url, user.credential_id, user.pub_key, user.sign_count, user.rp_id)
-    return 1
+    return render_template('user.html')
 
 @app.route('/logout')
 @login_required
