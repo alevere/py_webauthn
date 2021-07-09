@@ -211,7 +211,7 @@ def verify_assertion():
     challenge = session.get('challenge')
     assertion_response = request.form
     credential_id = assertion_response.get('id')
-    print assertion_response
+    print(assertion_response)
     user = User.query.filter_by(credential_id=credential_id).first()
     if not user:
         return make_response(jsonify({'fail': 'User does not exist.'}), 401)
