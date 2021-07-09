@@ -13,9 +13,9 @@
          <thead>
             <tr>
                <th>User</th>
-               <th>Nampe</th>
+               <th>Name</th>
                <th>PubKey</th>
-               <th>Pin</th>
+               <th>RP ID</th>
             </tr>
          </thead>
          
@@ -24,8 +24,8 @@
                <tr>
                   <td>{{ user.username }}</td>
                   <td>{{ user.display_name }}</td>
-                  <td>{{ user.username }}</td>
-                  <td>{{ user.displayname }}</td>
+                  <td>{{ user.pub_key }}</td>
+                  <td>{{ user.rp_id }}</td>
                </tr>
             {% endfor %}
          </tbody>
