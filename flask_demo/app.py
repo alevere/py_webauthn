@@ -248,6 +248,9 @@ def verify_assertion():
 def list():
     app.logger.info('Info level log')
     app.logger.warning('Warning level log')
+    user = User.query.all()
+    if not user:
+        return render_template('users.html')
     return render_template('users.html')
 
 @app.route('/logout')
