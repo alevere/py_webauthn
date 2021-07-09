@@ -12,9 +12,9 @@
       <table>
          <thead>
             <tr>
-               <th>Name</th>
-               <th>City</th>
-               <th>Address</th>
+               <th>User</th>
+               <th>Nampe</th>
+               <th>PubKey</th>
                <th>Pin</th>
             </tr>
          </thead>
@@ -23,7 +23,9 @@
             {% for user in User%}
                <tr>
                   <td>{{ user.username }}</td>
-                  <td>Hello</td>
+                  <td>{{ user.display_name }}</td>
+                  <td>{{ user.username }}</td>
+                  <td>{{ user.displayname }}</td>
                </tr>
             {% endfor %}
          </tbody>
