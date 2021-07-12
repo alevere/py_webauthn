@@ -208,7 +208,9 @@ def verify_credential_info():
 
 @app.route('/verify_assertion', methods=['POST'])
 def verify_assertion():
+    logging.basicConfig(filename='/app/flask_demo/record.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
     challenge = session.get('challenge')
+    print(challenge)
     assertion_response = request.form
     credential_id = assertion_response.get('id')
     print(assertion_response)
