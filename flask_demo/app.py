@@ -232,7 +232,7 @@ def verify_assertion():
     try:
         sign_count = webauthn_assertion_response.verify()
     except Exception as e:
-        return jsonify({'fail': 'Assertion failed. Error: {}'.format(e)})
+        return jsonify({'fail': 'Assertion failed. Error: {}'.format(challenge)})
 
     # Update counter.
     user.sign_count = sign_count
