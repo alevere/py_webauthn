@@ -119,7 +119,7 @@ def webauthn_begin_assertion():
 
     session.pop('challenge', None)
 
-    challenge = util.generate_challenge(32)
+    challenge = request.form.get('login_challenge')
 
     # We strip the padding from the challenge stored in the session
     # for the reasons outlined in the comment in webauthn_begin_activate.
@@ -208,9 +208,7 @@ def verify_credential_info():
 
 @app.route('/verify_assertion', methods=['POST'])
 def verify_assertion():
-    logging.basicConfig(filename='/app/flask_demo/record.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
-    challenge = session['challenge']
-    print(challenge)
+    challenge = session.get('challenge')
     assertion_response = request.form
     credential_id = assertion_response.get('id')
     print(assertion_response)
@@ -232,7 +230,7 @@ def verify_assertion():
     try:
         sign_count = webauthn_assertion_response.verify()
     except Exception as e:
-        return jsonify({'fail': 'Assertion failed. Error: {}'.format(challenge)})
+        return jsonify({'fail': 'Assertion failed. Error: {}'.format(e)})
 
     # Update counter.
     user.sign_count = sign_count
