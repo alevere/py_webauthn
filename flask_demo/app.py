@@ -119,7 +119,7 @@ def webauthn_begin_assertion():
 
     session.pop('challenge', None)
 
-    challenge = request.form.get('login_challenge')
+    challenge = util.generate_challenge(32)
 
     # We strip the padding from the challenge stored in the session
     # for the reasons outlined in the comment in webauthn_begin_activate.
