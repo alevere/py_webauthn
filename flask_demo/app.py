@@ -131,7 +131,7 @@ def webauthn_begin_assertion():
         user.credential_id, user.pub_key, user.sign_count, user.rp_id)
 
     webauthn_assertion_options = webauthn.WebAuthnAssertionOptions(
-        webauthn_user, challenge, uv_required=True)
+        webauthn_user, challenge)
 
     return jsonify(webauthn_assertion_options.assertion_dict)
 
@@ -159,7 +159,7 @@ def verify_credential_info():
         trusted_attestation_cert_required,
         self_attestation_permitted,
         none_attestation_permitted,
-        uv_required=True)  # User Verification
+        uv_required=False)  # User Verification
 
     try:
         webauthn_credential = webauthn_registration_response.verify()
@@ -227,7 +227,7 @@ def verify_assertion():
         assertion_response,
         challenge,
         ORIGIN,
-        uv_required=True)  # User Verification
+        uv_required=False)  # User Verification
 
     try:
         sign_count = webauthn_assertion_response.verify()
