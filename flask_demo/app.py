@@ -39,6 +39,7 @@ login_manager.init_app(app)
 RP_ID = os.environ.get('RPID')
 RP_NAME = os.environ.get('RPNAME')
 ORIGIN = os.environ.get('ORIGIN')
+CHALLENGES = os.environ.get('CHALLENGE')
 
 # Trust anchors (trusted attestation roots) should be
 # placed in TRUST_ANCHOR_DIR.
@@ -85,7 +86,7 @@ def webauthn_begin_activate():
     session['register_username'] = username
     session['register_display_name'] = display_name
 
-    challenge = util.generate_challenge(32)
+    challenge = CHALLENGES
     ukey = util.generate_ukey()
 
     # We strip the saved challenge of padding, so that we can do a byte
@@ -93,7 +94,7 @@ def webauthn_begin_activate():
     # from the browser.
     # We will still pass the padded version down to the browser so that the JS
     # can decode the challenge into binary without too much trouble.
-    session['challenge'] = challenge.rstrip('=')
+    #session['challenge'] = challenge.rstrip('=')
     session['register_ukey'] = ukey
 
     make_credential_options = webauthn.WebAuthnMakeCredentialOptions(
@@ -119,11 +120,11 @@ def webauthn_begin_assertion():
 
     session.pop('challenge', None)
 
-    challenge = request.form.get('login_challenge')
+    challenge = CHALLENGES
 
     # We strip the padding from the challenge stored in the session
     # for the reasons outlined in the comment in webauthn_begin_activate.
-    session['challenge'] = challenge.rstrip('=')
+    session['challenge'] = challenge
 
     webauthn_user = webauthn.WebAuthnUser(
         user.ukey, user.username, user.display_name, user.icon_url,
