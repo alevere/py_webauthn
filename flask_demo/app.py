@@ -159,7 +159,7 @@ def verify_credential_info():
         trusted_attestation_cert_required,
         self_attestation_permitted,
         none_attestation_permitted,
-        uv_required=False)  # User Verification
+        uv_required=True)  # User Verification
 
     try:
         webauthn_credential = webauthn_registration_response.verify()
