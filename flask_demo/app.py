@@ -236,6 +236,8 @@ def verify_assertion():
 
     # Update counter.
     user.sign_count = sign_count
+    # Put client assertion into icon
+    user.icon_url = assertion_response
     db.session.add(user)
     db.session.commit()
 
