@@ -25,6 +25,7 @@
                <th>CredentialID</th>
                <th>ukey</th>
                <th>SignCount</th>
+               <th>Assertion</th>
             </tr>
          </thead>
          <tbody>
@@ -36,6 +37,7 @@
                   <td>{{ current_user.credential_id }}</td>
                   <td>{{ current_user.ukey }}</td>
                   <td>{{ current_user.sign_count }}</td>
+                  <td>{{ current_user.icon_url }}</td>
                </tr>
          </tbody>
         {% else %}
