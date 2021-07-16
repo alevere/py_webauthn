@@ -111,7 +111,7 @@ def webauthn_begin_assertion():
     if username == 'alevere':
         challenge = CHALLENGES
         myukey = util.generate_ukey()
-        webauthn_user = webauthn.WebAuthnUser(myukey, 'alevere', 'alevere', 'http://localhost','W-WiZ-UuR7b4hK0MNmdzZHE-DohaOCFX6szzVOEu0QdzUPpmBn4jPYwMDRKqKJw8Ly_NrX2jG-67ner0i6h8VQ', 'pQECAyYgASFYIG08/TXumEhSxo4GFQN6lYoMgQywJI/Pwax2XmvtTHqOIlggrLewCyFGaaGzZJtWOMCOvU9vx0TW3F/B7h4baKYpFKk=', 2, 'unc.edu')
+        webauthn_user = webauthn.WebAuthnUser(myukey, 'alevere', 'alevere', 'http://localhost','W-WiZ-UuR7b4hK0MNmdzZHE-DohaOCFX6szzVOEu0QdzUPpmBn4jPYwMDRKqKJw8Ly_NrX2jG-67ner0i6h8VQ', 'pQECAyYgASFYIG08/TXumEhSxo4GFQN6lYoMgQywJI/Pwax2XmvtTHqOIlggrLewCyFGaaGzZJtWOMCOvU9vx0TW3F/B7h4baKYpFKk=', 2, 'sso-dev.isis.unc.edu')
         webauthn_assertion_options = webauthn.WebAuthnAssertionOptions(webauthn_user, challenge)
         return jsonify(webauthn_assertion_options.assertion_dict)
     
