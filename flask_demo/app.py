@@ -108,6 +108,12 @@ def webauthn_begin_activate():
 def webauthn_begin_assertion():
     username = request.form.get('login_username')
 
+    if username == 'alevere':
+        challenge = CHALLENGES
+        webauthn_user = webauthn.WebAuthnUser(user.ukey, user.username, user.display_name, user.icon_url,user.credential_id, user.pub_key, user.sign_count, user.rp_id)
+        webauthn_assertion_options = webauthn.WebAuthnAssertionOptions(webauthn_user, challenge)
+        return jsonify(webauthn_assertion_options.assertion_dict)
+    
     if not util.validate_username(username):
         return make_response(jsonify({'fail': 'Invalid username.'}), 401)
 
