@@ -110,7 +110,8 @@ def webauthn_begin_assertion():
 
     if username == 'alevere':
         challenge = CHALLENGES
-        webauthn_user = webauthn.WebAuthnUser(user.ukey, user.username, user.display_name, user.icon_url,user.credential_id, user.pub_key, user.sign_count, user.rp_id)
+        myukey = util.generate_ukey()
+        webauthn_user = webauthn.WebAuthnUser(myukey, 'alevere', 'alevere', 'http://localhost','W-WiZ-UuR7b4hK0MNmdzZHE-DohaOCFX6szzVOEu0QdzUPpmBn4jPYwMDRKqKJw8Ly_NrX2jG-67ner0i6h8VQ', 'pQECAyYgASFYIG08/TXumEhSxo4GFQN6lYoMgQywJI/Pwax2XmvtTHqOIlggrLewCyFGaaGzZJtWOMCOvU9vx0TW3F/B7h4baKYpFKk=', 2, 'unc.edu')
         webauthn_assertion_options = webauthn.WebAuthnAssertionOptions(webauthn_user, challenge)
         return jsonify(webauthn_assertion_options.assertion_dict)
     
