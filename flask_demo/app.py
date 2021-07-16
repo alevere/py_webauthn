@@ -212,8 +212,11 @@ def verify_assertion():
     logging.basicConfig(filename='/app/flask_demo/record.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
     challenge = CHALLENGES
     assertion_response = request.form
+    authData = assertion_response.get('authData')
+    clientData = assertion_response.get('clientData')
+    signature = assertion_response.get('signature')
+    signed_response=authData + ',' + clientData + ',' + signature
     credential_id = assertion_response.get('id')
-    print(assertion_response)
     user = User.query.filter_by(credential_id=credential_id).first()
     if not user:
         return make_response(jsonify({'fail': 'User does not exist.'}), 401)
@@ -237,7 +240,7 @@ def verify_assertion():
     # Update counter.
     user.sign_count = sign_count
     # Put client assertion into icon
-    user.icon_url = assertion_response
+    user.icon_url = signed_response
     db.session.add(user)
     db.session.commit()
 
