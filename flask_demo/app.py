@@ -227,7 +227,7 @@ def verify_assertion():
         assertion_response,
         challenge,
         ORIGIN,
-        uv_required=False)  # User Verification
+        uv_required=True)  # User Verification
 
     try:
         sign_count = webauthn_assertion_response.verify()
