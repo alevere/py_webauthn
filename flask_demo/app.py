@@ -138,7 +138,7 @@ def webauthn_begin_assertion():
 
 @app.route('/verify_credential_info', methods=['POST'])
 def verify_credential_info():
-    challenge = session['challenge']
+    challenge = CHALLENGES
     username = session['register_username']
     display_name = session['register_display_name']
     ukey = session['register_ukey']
@@ -210,8 +210,7 @@ def verify_credential_info():
 @app.route('/verify_assertion', methods=['POST'])
 def verify_assertion():
     logging.basicConfig(filename='/app/flask_demo/record.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
-    challenge = session.get('challenge')
-    print(challenge)
+    challenge = CHALLENGES
     assertion_response = request.form
     credential_id = assertion_response.get('id')
     print(assertion_response)
